@@ -1,4 +1,4 @@
-let {pages, view, firstDayOfWeek, globalTaskFilter, dailyNoteFolder, dailyNoteFormat, startPosition, upcomingDays, css, options} = input;
+let {pages, view, firstDayOfWeek, globalTaskFilter, globalTaskFilterReplace, dailyNoteFolder, dailyNoteFormat, startPosition, upcomingDays, css, options} = input;
 
 // Error Handling
 if (!pages && pages!="") { dv.span('> [!ERROR] Missing pages parameter\n> \n> Please set the pages parameter like\n> \n> `pages: ""`'); return false };
@@ -120,9 +120,9 @@ function getMeta(tasks) {
 			tasks[i].priority = "C";
 		}
 		if (globalTaskFilter) {
-			tasks[i].text = tasks[i].text.replaceAll(globalTaskFilter,"");
+			tasks[i].text = tasks[i].text.replaceAll(globalTaskFilter, globalTaskFilterReplace ?? "");
 		} else {
-			tasks[i].text = tasks[i].text.replaceAll("#task","");
+			tasks[i].text = tasks[i].text.replaceAll("#task", globalTaskFilterReplace ?? "");
 		};
 		tasks[i].text = tasks[i].text.replaceAll("[[","");
 		tasks[i].text = tasks[i].text.replaceAll("]]","");
